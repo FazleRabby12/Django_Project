@@ -1,0 +1,77 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <title>Students Biographical Status</title>
+
+  </head> 
+
+    <body bgcolor="cyan">
+        {% csrf_token %}
+          <div class="container">
+                <div class="row mt-4">
+                 <div class="col">
+                      <table class="table">
+                          <thread class="thread-dark">
+                              <tr>
+
+                              <th scope="col">Student ID</th>
+                              <th scope="col">Student Name</th>
+                              <th scope="col">File</th>
+                              <th scope="col">Age</th>
+                              <th scope="col">Blood Group</th>
+                              <th scope="col">NID NO</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Father Name</th>
+                              <th scope="col">Father NID NO</th>                              
+                              <th scope="col">Mother Name</th>
+                              <th scope="col">Mother NID NO</th>
+                              <th scope="col">Action</th>
+                              </thread>
+                              <tbody>  
+                                                           
+                                {% for p in products %}
+                                <tr>
+                                  <th scope="row">{{ p.studentid }}</th>
+                                  <td>{{ p.studentname }}</td>
+                                  {% if p.image %}
+                                  <td>
+                                    <img src="{{ p.image.url }}" height="20%" width="20%" alt="" class="prod-size">
+                                  </td>
+                                 {% else %}
+                                  <td>
+                                    <img src="{{"/media/images/OIP.jpg"}}" height="10%" width="10%" alt="" class="prod-size">
+                                  </td>
+                                 {% endif %}                             
+                                  <td>{{ p.age }}</td>
+                                  <td>{{ p.bloodgroup }}</td>
+                                  <td>{{ p.nid_no }}</td>                              
+                                  <td>{{ p.email }}</td>
+                                  <td>{{ p.fathername }}</td>
+                                  <td>{{ p.nid_no_of_father }}</td>
+                                  <td>{{ p.mothername }}</td>
+                                  <td>{{ p.nid_no_of_mother }}</td>
+                                  
+                                  <td>
+                                    <a href="{% url 'UpdateBiography' p.studentid %}" class="btn btn-warning btn-sm">Edit</a>                                 
+                                    <form action="{% url 'delete_biography' p.studentid %}"
+                                    method="post" class="d-inline">{% csrf_token %}
+                                    <input type="submit" class="btn btn-sm btn-danger" value="Delete">
+                                    </form>
+                                  </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+     </body>
+  </html>       
+                

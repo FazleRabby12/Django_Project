@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+      
+    <title>Customer Information</title>
+ 
+  </head> 
+
+    <body bgcolor="LightGoldenRodYellow">
+        {% csrf_token %}
+          
+          <table class="table">
+            <thread class="thread-dark">
+              <tr>
+               <th scope="col">Student ID</th>
+               <th scope="col">Student Name</th>
+               <th scope="col">Organization Type</th>
+               <th scope="col">Image</th>
+               <th scope="col">Email</th>            
+               <th scope="col">Biographic Info</th>
+               <th scope="col">Academic Info</th>
+               <th scope="col">Financial Info</th>
+               <th scope="col">Action</th>
+              </tr>
+            </thread>
+            <tbody>
+
+      
+              {% for s in stu %}
+              <tr>
+                <th scope="row">{{ s.studentid }}</th>
+                <td>{{ s.studentname }}</td>
+                <td>{{ s.organizationtype }}</td>
+                {% if s.image %}
+                <td>
+                  <img src="{{ s.image.url }}" height="10%" width="10%" alt="" class="prod-size">
+                </td>
+              {% else %}
+                <td>
+                  <img src="{{"/media/images/OIP.jpg"}}" height="10%" width="10%" alt="" class="prod-size">
+                </td>
+              {% endif %}
+
+                <td>{{ s.email }}</td>
+              
+                <td>{{ s.biographic_info }}</td>     
+                <td>{{ s.academic_info }}</td>  
+                <td>{{ s.financial_info }}</td>     
+                <td>
+                  <a href="{% url 'UpdateStudent' s.studentid %}" class="btn btn-warning btn-sm">Edit</a>
+                  <form action="{% url 'delete_student' s.studentid %}"
+                  method="post" class="d-inline"> {% csrf_token %}
+                  <input type="submit" class="btn btn-danger" value="Delete">
+                  </form>
+               </td>
+              </tr>
+
+              {% endfor %}
+            </tbody>
+          </table>
+
+    </body>
+</html>

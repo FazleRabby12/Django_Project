@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <script>
+       
+            $(document).ready(function()
+            {
+            $('.Item3').click(function()
+            {
+                var txt="";
+                $('.Item3:checked').each(function()
+                
+                {
+                txt+=$(this).val()+",";
+            
+                });
+                txt=txt.substring(0,txt.length-1);
+                $('#chktext').val(txt);
+            });
+
+            $('.Academic').click(function()
+            {
+                var txt="";
+                $('.Academic:checked').each(function()
+                
+                {
+                txt+=$(this).val()+",";
+            
+                });
+                txt=txt.substring(0,txt.length-1);
+                $('#chkacademic').val(txt);
+            });
+           
+
+            $('.Financial').click(function()
+            {
+                var txt="";
+                $('.Financial:checked').each(function()
+                
+                {
+                txt+=$(this).val()+",";
+            
+                });
+                txt=txt.substring(0,txt.length-1);
+                $('#chkfinancial').val(txt);
+            });
+         });
+      
+    </script>
+  </head>
+  <body>
+    <section class="section">
+      <div class="container">
+          <div class="row justify-content-center">
+              <div class="col-md-8">
+                  <div class="card">
+                      <div class="card-header">
+                          <h2 class="fw-bold">Update Student Information</h2>
+                      </div>
+                      <div class="card-body">
+                          <form action="" method="POST" enctype="multipart/form-data">
+                              {% csrf_token %}
+                              <div class="mb-3">
+
+                                  <label for="" class="form-label">Student ID</label>
+                                  <input type="text" Required name="studentid" value= "{{ prod.studentid }}" class="form-control">
+                              </div>
+                              <div class="mb-3">
+                                  <label for="" class="form-label">Student Name</label>
+                                  <input type="text" Required name="studentname"  value= "{{ prod.studentname }}"  class="form-control">
+                              </div>
+                              <div class="mb-3">
+                                  <label for="" class="form-label">Organization Type</label>
+                                  <input type="text" Required name="organizationtype" value= "{{ prod.organizationtype }}" class="form-control">
+                              </div>
+                              <div class="mb-3">
+                                  <label for="" class="form-label">Email</label>
+                                  <input type="text" Required name="email" value= "{{ prod.email }}" class="form-control">
+                              </div>
+                               <div class="mb-3">
+                                 {% if p.image %}
+                                     <img src="{{ prod.image.url }}" alt="image here" class="prod-size">
+                                 {% endif %}
+                                  <label for="" class="form-label">Image</label>
+                                  <input type="file" name="image" class="form-control">
+                              </div>
+                              <div class="mb-3">
+                                  <label for="" class="form-label">Biographic Info</label>
+                                  <input type="text"  name="biographic_info" value= "{{ prod.biographic_info }}" class="form-control">
+                              </div>
+                              <div class="mb-3">
+                                <label for="" class="form-label">Academic Info</label>
+                                <input type="text"  name="academic_info" value= "{{ prod.academic_info }}" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Financial Info</label>
+                                <input type="text"  name="financial_info" value= "{{ prod.financial_info }}" class="form-control">
+                            </div>
+
+                             <div class="mb-3">
+                                <label for="" class="form-label">Biographic Info</label><br>
+                                <input type="checkbox" class="Item3" value="AGE">AGE<br>
+                                <input type="checkbox" class="Item3" value="Blood Group">Blood Group<br>
+                                <input type="checkbox" class="Item3" value="Father Name">Father Name<br>
+                                <input type="checkbox" class="Item3" value="Father NID NO">Father NID NO<br>                               
+                                <input type="checkbox" class="Item3" value="Mother Name">Mother Name<br>
+                                <input type="checkbox" class="Item3" value="mother NID NO">mother NID NO<br>
+                            </div>
+                            <input type="text" id="chktext" name="biographic_info"/><br>
+                            <br>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Academic Info</label>
+                                <input type="text"  name="academic_info" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Academic Info</label><br>
+                                <input type="checkbox" class="Academic" value="School">School<br>
+                                <input type="checkbox" class="Academic" value="College">College<br>
+                                <input type="checkbox" class="Academic" value="SSC level GPA">SSC level GPA<br>
+                                <input type="checkbox" class="Academic" value="HSC level GPA">HSC level GPA<br>                               
+                            </div>
+                            <input type="text" id="chkacademic" name="academic_info"/><br>
+                            <br>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Financial Info</label> 
+                                <input type="text"  name="financial_info" class="form-control">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="" class="form-label">Financial Info</label><br>
+                                <input type="checkbox" class="Financial" value="Father Income">Father Income<br>
+                                <input type="checkbox" class="Financial" value="Mother Income">Mother Income<br>
+                                <input type="checkbox" class="Financial" value="Payable Amount">Payable Amount<br>
+                                <input type="checkbox" class="Financial" value="Paid Amount">Paid Amount<br>                               
+                            </div>
+                            <input type="text" id="chkfinancial" name="financial_info"/><br>
+                            <br>
+                                
+                              <button type="submit" class="btn btn-primary">Update</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+   </section>
+  </body>
+</html>
